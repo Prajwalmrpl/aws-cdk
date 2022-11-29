@@ -1,7 +1,10 @@
-from aws_cdk import (
-    Stack,
-)
+import aws_cdk as cdk
 from constructs import Construct
+from aws_cdk import (
+    # Duration,
+    Stack,
+    # aws_sqs as sqs,
+)
 
 class DemoCdkStack(Stack):
 
