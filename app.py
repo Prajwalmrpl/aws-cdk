@@ -24,6 +24,8 @@ from serverless_stacks.custom_lambda_as_cron import CustomLambdaAsCronStack
 
 from stacks_from_cfn.stack_from_existing_cfn_template import StackFromCloudformationTemplate
 
+from cw_monitoring_stacks.ec2_with_alarams import CustomEc2WithAlarmsStack
+
 app = cdk.App()
 
 env_US = cdk.Environment(account="923407756913",region="us-east-1")
@@ -58,11 +60,13 @@ env_US = cdk.Environment(account="923407756913",region="us-east-1")
 
 #CustomLambdaStack(app, "CustomLambdaStack")
 
-CustomLambdaSrcFromS3Stack(app, "CustomLambdaSrcFromS3Stack", env=env_US)
+#CustomLambdaSrcFromS3Stack(app, "CustomLambdaSrcFromS3Stack", env=env_US)
 
-CustomLambdaAsCronStack(app, "CustomLambdaAsCronStack", env=env_US)
+#CustomLambdaAsCronStack(app, "CustomLambdaAsCronStack", env=env_US)
 
-StackFromCloudformationTemplate(app, "StackFromCloudformationTemplate", env=env_US)
+#StackFromCloudformationTemplate(app, "StackFromCloudformationTemplate", env=env_US)
+
+CustomEc2WithAlarmsStack(app, "CustomEC2WithAlaramsStack", env=env_US)
 
 
 app.synth()

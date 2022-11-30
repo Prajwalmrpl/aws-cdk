@@ -17,7 +17,10 @@ class StackFromCloudformationTemplate(Stack):
         except OSError:
             print("Unable to read Cfn Template")
 
-        
+        resoures_from_cfn_template = cdk.CfnInclude(self,
+                                                     'konstoneInfra',
+                                                     template=cfn_template
+                                                     )
 
         encrypted_bkt_arn = cdk.Fn.get_att("EncryptedS3Bucket", "Arn")
 

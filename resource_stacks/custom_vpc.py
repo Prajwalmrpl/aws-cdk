@@ -39,6 +39,7 @@ class CustomVpcStack(Stack):
 
         
         # Resource in same account.
+        #import the S3 bucket from the same account
         bkt1 = s3.Bucket.from_bucket_name(
             self,
             "MyImportedBuket",
@@ -52,3 +53,20 @@ class CustomVpcStack(Stack):
         cdk.CfnOutput(self,
                        "myimportedbucket",
                        value=bkt1.bucket_name)
+
+        #import existing VPC from the same account and same region using VPC-ID
+        vpc2 = ec2.Vpc.from_lookup(self,
+                                    "importedVPC",
+                                    # is_default=True,
+                                    vpc_id="vpc-d0a193aa"
+                                    )
+
+        cdk.CfnOutput(self,
+                       "importedVpc2",
+                       value=vpc2.vpc_id)
+
+        #VPC Peering to connect between 2 VPC's imported vpc and the custom vpc
+        peer_vpc = ec2.CfnVPCPeeringConnection(self,
+                                                "peerVpc12",
+                                                peer_vpc_id=custom_vpc.vpc_id,
+                                                vpc_id=vpc2.vpc_id)
