@@ -18,7 +18,11 @@ from resource_stacks.s3_resource_policy import CustomS3ResourcePolicyStack
 from resource_stacks.custom_sns import CustomSnsStack
 from resource_stacks.custom_sqs import CustomSqsStack
 
+from serverless_stacks.custom_lambda import CustomLambdaStack
+from serverless_stacks.custom_lambda_src_from_s3 import CustomLambdaSrcFromS3Stack
+from serverless_stacks.custom_lambda_as_cron import CustomLambdaAsCronStack
 
+from stacks_from_cfn.stack_from_existing_cfn_template import StackFromCloudformationTemplate
 
 app = cdk.App()
 
@@ -33,23 +37,32 @@ env_US = cdk.Environment(account="923407756913",region="us-east-1")
 
 #CustomEC2Stack(app, "customEC2Stack", env=env_Mumbai)
 
-#CustomEc2InstanceProfileStack(app, "CustomEC2InstanceProfile", env=env_US)
+#CustomEc2InstanceProfileStack(app, "CustomEC2InstanceProfile")
 
-#CustomEc2LatestAmiStack(app, "EC2withlatestAMI", env=env_US)
+#CustomEc2LatestAmiStack(app, "EC2withlatestAMI")
 
-#CustomEc2PiopsStack(app, "ec2piopsstack", env=env_US)
+#CustomEc2PiopsStack(app, "ec2piopsstack")
 
 
-#AlbAgStack(app, "ALB-AG-Stack", env=env_US)
+#AlbAgStack(app, "ALB-AG-Stack")
 
-#CustomParametersSecretsStack(app, "SSMStack", env=env_US)
+#CustomParametersSecretsStack(app, "SSMStack")
 
-CustomIamUsersGroupsStack(app, "IAM-Users-Groups-Stack", env=env_US)
+#CustomIamUsersGroupsStack(app, "IAM-Users-Groups-Stack"
 
-CustomS3ResourcePolicyStack(app, "S3-Resource-Policy", env=env_US)
+#CustomS3ResourcePolicyStack(app, "S3-Resource-Policy")
 
-CustomSnsStack(app, "SnsStack", env=env_US)
+#CustomSnsStack(app, "SnsStack")
 
-CustomSqsStack(app, "SQSStack", env=env_US)
+#CustomSqsStack(app, "SQSStack")
+
+#CustomLambdaStack(app, "CustomLambdaStack")
+
+CustomLambdaSrcFromS3Stack(app, "CustomLambdaSrcFromS3Stack", env=env_US)
+
+CustomLambdaAsCronStack(app, "CustomLambdaAsCronStack", env=env_US)
+
+StackFromCloudformationTemplate(app, "StackFromCloudformationTemplate", env=env_US)
+
 
 app.synth()
