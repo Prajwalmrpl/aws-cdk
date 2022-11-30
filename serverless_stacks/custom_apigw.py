@@ -1,12 +1,14 @@
 from aws_cdk import aws_apigateway as _apigw
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_logs as _logs
-from aws_cdk import core
+import aws_cdk as cdk 
+from aws_cdk import Stack
+import constructs as Construct
 
 
-class CustomApiGatewayStack(core.Stack):
+class CustomApiGatewayStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, ** kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, ** kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Create Serverless Event Processor using Lambda):
@@ -24,8 +26,8 @@ class CustomApiGatewayStack(core.Stack):
                                        handler="index.lambda_handler",
                                        code=_lambda.InlineCode(
                                            konstone_fn_code),
-                                       timeout=core.Duration.seconds(3),
-                                       reserved_concurrent_executions=1,
+                                       timeout=cdk.Duration.seconds(3),
+                                       #reserved_concurrent_executions=1,
                                        environment={
                                            "LOG_LEVEL": "INFO",
                                            "Environment": "Production"
@@ -38,17 +40,17 @@ class CustomApiGatewayStack(core.Stack):
                                      "konstoneLoggroup",
                                      log_group_name=f"/aws/lambda/{konstone_fn.function_name}",
                                      retention=_logs.RetentionDays.ONE_WEEK,
-                                     removal_policy=core.RemovalPolicy.DESTROY
+                                     removal_policy=cdk.RemovalPolicy.DESTROY
                                      )
 
-        # Add API GW front end for the Lambda
+        #Add API-GW for the lambda Function
         konstone_fn_integration = _apigw.LambdaRestApi(
             self,
             "konstoneApiEndpoint",
             handler=konstone_fn
         )
 
-        output_1 = core.CfnOutput(self,
+        output_1 = cdk.CfnOutput(self,
                                   "ApiUrl",
                                   value=f"{konstone_fn_integration.url}",
                                   description="Use a browser to access this url"

@@ -24,7 +24,7 @@ class CustomEc2WithAlarmsStack(Stack):
 
         # Add Subscription to SNS Topic
         konstone_ops_team.add_subscription(
-            _subs.EmailSubscription("konstone@gmail.com")
+            _subs.EmailSubscription("prajwalprajwal6497@gmail.com")
         )
 
         # Create a MultiAZ VPC):
@@ -90,8 +90,8 @@ class CustomEc2WithAlarmsStack(Stack):
 
         # Simple Lambda Function to return event
         konstone_fn = _lambda.Function(self,
-                                       "konstoneFunction",
-                                       function_name="konstone_function",
+                                       "MylambdaFunction",
+                                       function_name="mylambda1_function",
                                        runtime=_lambda.Runtime.PYTHON_3_7,
                                        handler="index.lambda_handler",
                                        code=_lambda.InlineCode(

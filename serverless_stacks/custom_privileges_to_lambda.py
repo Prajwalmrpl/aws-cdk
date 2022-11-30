@@ -1,25 +1,28 @@
-from aws_cdk import core
+import aws_cdk as cdk 
+from aws_cdk import Stack 
+import constructs as Construct
 from aws_cdk import aws_lambda as _lambda
-from aws_cdk import aws_dynamodb as _dynamodb
-from aws_cdk import aws_iam as _iam
+from aws_cdk import aws_dynamodb as dynamodb
+from aws_cdk import aws_iam as iam
 
 
-class CustomPrivilegesToLambdaStack(core.Stack):
+class CustomPrivilegesToLambdaStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, ** kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, ** kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        # DynamoDB Table):
-        konstone_s3_assets_table = _dynamodb.Table(
+        #Create DynamoDB Table
+        konstone_s3_assets_table = dynamodb.Table(
             self,
             "konstoneAssetsDDBTable",
-            table_name="konstone-asset-pkon-table",
-            partition_key=_dynamodb.Attribute(
+            table_name="konstone-asset-table",
+            partition_key= dynamodb.Attribute(
                 name="_id",
-                type=_dynamodb.AttributeType.STRING
+                type= dynamodb.AttributeType.STRING
             ),
-            removal_policy=core.RemovalPolicy.DESTROY
+            removal_policy=cdk.RemovalPolicy.DESTROY
         )
+
 
         # Read Lambda Code
         try:
@@ -36,19 +39,24 @@ class CustomPrivilegesToLambdaStack(core.Stack):
                                        handler="index.lambda_handler",
                                        code=_lambda.InlineCode(
                                            konstone_fn_code),
-                                       timeout=core.Duration.seconds(3),
-                                       reserved_concurrent_executions=1,
+                                       timeout=cdk.Duration.seconds(3),
+                                       #reserved_concurrent_executions=1,
                                        environment={
                                            "LOG_LEVEL": "INFO",
                                            "DDB_TABLE_NAME": f"{konstone_s3_assets_table.table_name}"
                                        }
-                                       )
+                                        )
 
-        # Add S3 Read Only Managed Policy to Lambda
+        #Add S3 Read Only Managed Policy to Lambda
         konstone_fn.role.add_managed_policy(
-            _iam.ManagedPolicy.from_aws_managed_policy_name(
-                "AmazonS3ReadOnlyAccess")
+            iam.ManagedPolicy.from_aws_managed_policy_name(
+                "AmazonS3ReadOnlyAccess"
+            )
         )
-
-        # Add DynamoDB Write Privileges To Lambda
+        
+        #Add DynamoDB Write Privilages To Lambda
         konstone_s3_assets_table.grant_write_data(konstone_fn)
+
+        
+    
+

@@ -21,10 +21,21 @@ from resource_stacks.custom_sqs import CustomSqsStack
 from serverless_stacks.custom_lambda import CustomLambdaStack
 from serverless_stacks.custom_lambda_src_from_s3 import CustomLambdaSrcFromS3Stack
 from serverless_stacks.custom_lambda_as_cron import CustomLambdaAsCronStack
+from serverless_stacks.custom_apigw import CustomApiGatewayStack
+from serverless_stacks.custom_privileges_to_lambda import CustomPrivilegesToLambdaStack
 
 from stacks_from_cfn.stack_from_existing_cfn_template import StackFromCloudformationTemplate
 
 from cw_monitoring_stacks.ec2_with_alarams import CustomEc2WithAlarmsStack
+from cw_monitoring_stacks.cloudwatch_dashboard import CustomCloudwatchLiveDashboardStack
+
+
+from app_db_stack.vpc_3tier_stack import Vpc3TierStack
+from app_db_stack.web_server_3tier_stack import WebServer3TierStack
+from app_db_stack.rds_3tier_stack import RdsDatabase3TierStack
+
+
+from files.deploy_static_site import DeployStaticSiteStack
 
 app = cdk.App()
 
@@ -67,6 +78,27 @@ env_US = cdk.Environment(account="923407756913",region="us-east-1")
 #StackFromCloudformationTemplate(app, "StackFromCloudformationTemplate", env=env_US)
 
 CustomEc2WithAlarmsStack(app, "CustomEC2WithAlaramsStack", env=env_US)
+
+DeployStaticSiteStack(app, "DeployStaticSiteStack", env=env_US)
+
+
+
+"""vpc_3tier_stack = Vpc3TierStack(app, "multi-tier-app-vpc-stack")
+app_3tier_stack = WebServer3TierStack(
+     app, "multi-tier-app-web-server-stack", vpc=vpc_3tier_stack.vpc)
+db_3tier_stack = RdsDatabase3TierStack(
+     app,
+     "multi-tier-app-db-stack",
+     vpc=vpc_3tier_stack.vpc,
+     asg_security_groups=app_3tier_stack.web_server_asg.connections.security_groups,
+     description="Create Custom RDS Database"
+ )"""
+
+CustomApiGatewayStack(app, "CustomApiGatewayStack", env=env_US)
+
+CustomPrivilegesToLambdaStack(app, "CustomPrivilegesToLambdaStack", env=env_US)
+
+CustomCloudwatchLiveDashboardStack(app, "CustomCloudwatchLiveDashboardStack", env=env_US)
 
 
 app.synth()
