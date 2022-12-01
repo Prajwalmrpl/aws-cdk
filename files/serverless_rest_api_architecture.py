@@ -11,8 +11,7 @@ class ServerlessRestApiArchitectureStack(Stack):
 
     def __init__(self, scope: Construct, id: str, ** kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-
-        # Add your stack resources below):
+ 
         # DynamoDB Table
         api_db = _dynamodb.Table(
             self,
