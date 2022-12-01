@@ -36,6 +36,8 @@ from app_db_stack.rds_3tier_stack import RdsDatabase3TierStack
 
 
 from files.deploy_static_site import DeployStaticSiteStack
+from files.cf_oai_static import DeployCloudfrontOaiStaticSiteStack
+from files.serverless_event_with_s3 import ServerlessEventProcessorArchitectureWithS3EventsStack
 
 app = cdk.App()
 
@@ -77,9 +79,9 @@ env_US = cdk.Environment(account="923407756913",region="us-east-1")
 
 #StackFromCloudformationTemplate(app, "StackFromCloudformationTemplate", env=env_US)
 
-CustomEc2WithAlarmsStack(app, "CustomEC2WithAlaramsStack", env=env_US)
+#CustomEc2WithAlarmsStack(app, "CustomEC2WithAlaramsStack", env=env_US)
 
-DeployStaticSiteStack(app, "DeployStaticSiteStack", env=env_US)
+#DeployStaticSiteStack(app, "DeployStaticSiteStack", env=env_US)
 
 
 
@@ -94,11 +96,16 @@ db_3tier_stack = RdsDatabase3TierStack(
      description="Create Custom RDS Database"
  )"""
 
-CustomApiGatewayStack(app, "CustomApiGatewayStack", env=env_US)
+#CustomApiGatewayStack(app, "CustomApiGatewayStack", env=env_US)
 
-CustomPrivilegesToLambdaStack(app, "CustomPrivilegesToLambdaStack", env=env_US)
+#CustomPrivilegesToLambdaStack(app, "CustomPrivilegesToLambdaStack", env=env_US)
 
-CustomCloudwatchLiveDashboardStack(app, "CustomCloudwatchLiveDashboardStack", env=env_US)
+#CustomCloudwatchLiveDashboardStack(app, "CustomCloudwatchLiveDashboardStack", env=env_US)
 
+dp_stack=DeployCloudfrontOaiStaticSiteStack(app, "DeployCloudfrontOaiStaticSiteStack", env=env_US, description="Stack for DeployCloudfrontOaiStaticSiteStack")
+cdk.Tags.of(dp_stack).add("Name", "DeployCloudfrontOaiStaticSiteStack")
+
+se_stack=ServerlessEventProcessorArchitectureWithS3EventsStack(app, "ServerlessEventProcessorArchitectureWithS3EventsStack", env=env_US, description="Stack for ServerlessEventProcessorArchitectureWithS3EventsStack")
+cdk.Tags.of(dp_stack).add("Name", "ServerlessEventProcessorArchitectureWithS3EventsStack")
 
 app.synth()
