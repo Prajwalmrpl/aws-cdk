@@ -3,7 +3,7 @@ import aws_cdk as cdk
 import constructs as Construct
 from aws_cdk import aws_dynamodb as _dynamodb
 from aws_cdk import aws_lambda as _lambda
-from aws_cdk import aws_logs as _logs
+from aws_cdk import aws_logs as logs
 from aws_cdk import aws_apigateway as _apigw
 
 
@@ -81,3 +81,5 @@ class ServerlessRestApiArchitectureStack(Stack):
             value=f"{add_user_likes.resource_id}",
             description="User a browser to access this url, Replace {user_name} and {likes} with your own values"
         )
+
+
