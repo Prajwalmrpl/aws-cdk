@@ -38,6 +38,7 @@ from app_db_stack.rds_3tier_stack import RdsDatabase3TierStack
 from files.deploy_static_site import DeployStaticSiteStack
 from files.cf_oai_static import DeployCloudfrontOaiStaticSiteStack
 from files.serverless_event_with_s3 import ServerlessEventProcessorArchitectureWithS3EventsStack
+from files.serverless_rest_api_architecture import ServerlessRestApiArchitectureStack
 
 app = cdk.App()
 
@@ -102,10 +103,17 @@ db_3tier_stack = RdsDatabase3TierStack(
 
 #CustomCloudwatchLiveDashboardStack(app, "CustomCloudwatchLiveDashboardStack", env=env_US)
 
-dp_stack=DeployCloudfrontOaiStaticSiteStack(app, "DeployCloudfrontOaiStaticSiteStack", env=env_US, description="Stack for DeployCloudfrontOaiStaticSiteStack")
-cdk.Tags.of(dp_stack).add("Name", "DeployCloudfrontOaiStaticSiteStack")
+#dp_stack=DeployCloudfrontOaiStaticSiteStack(app, "DeployCloudfrontOaiStaticSiteStack", env=env_US, description="Stack for DeployCloudfrontOaiStaticSiteStack")
+#cdk.Tags.of(dp_stack).add("Name", "DeployCloudfrontOaiStaticSiteStack")
 
-se_stack=ServerlessEventProcessorArchitectureWithS3EventsStack(app, "ServerlessEventProcessorArchitectureWithS3EventsStack", env=env_US, description="Stack for ServerlessEventProcessorArchitectureWithS3EventsStack")
-cdk.Tags.of(dp_stack).add("Name", "ServerlessEventProcessorArchitectureWithS3EventsStack")
+#se_stack=ServerlessEventProcessorArchitectureWithS3EventsStack(app, "ServerlessEventProcessorArchitectureWithS3EventsStack", env=env_US, description="Stack for ServerlessEventProcessorArchitectureWithS3EventsStack")
+#cdk.Tags.of(dp_stack).add("Name", "ServerlessEventProcessorArchitectureWithS3EventsStack")
+
+#serv_event = ServerlessEventProcessorArchitectureWithS3EventsStack(app, "Serverless-Event-Process-Architecture-With-S3-Events", env=env_US)
+#cdk.Tags.of(serv_event).add("Name", "Serverless-Architcture-With-S3-Events")
+
+
+rest_api=ServerlessRestApiArchitectureStack(app, "ServerlessRestApiArchitectureStack", env=env_US, description="Stack for ServerlessRestApiArchitectureStack")
+cdk.Tags.of(rest_api).add("Name", "ServerlessRestApiArchitectureStack")
 
 app.synth()

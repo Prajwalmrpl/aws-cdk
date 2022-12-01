@@ -62,7 +62,7 @@ class CustomMetricsStack(Stack):
                                                              metric_name=third_party_error_metric.metric_name,
                                                              default_value=0,
                                                              metric_value="1"
-                                                             )
+                                                            )
 
         # Create Third Party Error Alarm
         third_party_error_alarm = _cloudwatch.Alarm(

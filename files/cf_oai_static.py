@@ -66,7 +66,7 @@ class DeployCloudfrontOaiStaticSiteStack(Stack):
             price_class=_cloudfront.PriceClass.PRICE_CLASS_100
         )
 
-        # Output of the Cloudfront Url
+        #output of the cloudfront distribution
         output_1 = cdk.CfnOutput(
             self,
             "CloudfrontUrl",

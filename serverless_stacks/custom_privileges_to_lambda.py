@@ -5,7 +5,6 @@ from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import aws_iam as iam
 
-
 class CustomPrivilegesToLambdaStack(Stack):
 
     def __init__(self, scope: Construct, id: str, ** kwargs) -> None:

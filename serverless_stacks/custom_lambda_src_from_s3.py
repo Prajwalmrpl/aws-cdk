@@ -1,11 +1,9 @@
 from aws_cdk import Stack
-import constructs as Construct
 import aws_cdk as cdk
+import constructs as Construct
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_logs as logs
 from aws_cdk import aws_s3 as s3
-
-
 
 class CustomLambdaSrcFromS3Stack(Stack):
 

@@ -1,11 +1,9 @@
-from aws_cdk import (
-    Stack, 
-)
+from aws_cdk import Stack
+import constructs as Construct
 from constructs import Construct
 from aws_cdk import aws_ec2 as ec2
 import aws_cdk as cdk
 from aws_cdk import aws_s3 as s3
-
 
 class CustomVpcStack(Stack):
 
@@ -27,7 +25,6 @@ class CustomVpcStack(Stack):
                 )
             ]
         )
-
         cdk.CfnOutput(self,
                     "customVpcOutput",
                     value=custom_vpc.vpc_id,

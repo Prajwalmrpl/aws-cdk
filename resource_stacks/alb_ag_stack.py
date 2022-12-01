@@ -32,6 +32,7 @@ class AlbAgStack(Stack):
                 )
             ]
         )
+    
 
         linux_ami =  ec2.AmazonLinuxImage(generation= ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
                                           edition= ec2.AmazonLinuxEdition.STANDARD,

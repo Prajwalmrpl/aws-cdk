@@ -34,6 +34,7 @@ class CustomCloudwatchLiveDashboardStack(Stack):
                 "PERCENTAGE_ERRORS": "75"
             }
         )
+    
 
         # Create Custom Loggroup
         # /aws/lambda/function-name
@@ -110,7 +111,7 @@ class CustomCloudwatchLiveDashboardStack(Stack):
                     ]
                 )
             )
-        )
+        ) 
 
         # Add 3rd Party API Error to Dashboard
         konstone_dashboard.add_widgets(
@@ -121,4 +122,5 @@ class CustomCloudwatchLiveDashboardStack(Stack):
                 )
             )
         )
-        
+
+
