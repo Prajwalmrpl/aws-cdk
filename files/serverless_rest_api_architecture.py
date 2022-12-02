@@ -3,7 +3,7 @@ import aws_cdk as cdk
 import constructs as Construct
 from aws_cdk import aws_dynamodb as _dynamodb
 from aws_cdk import aws_lambda as _lambda
-from aws_cdk import aws_logs as logs
+from aws_cdk import aws_logs as _logs
 from aws_cdk import aws_apigateway as _apigw
 
 
@@ -58,7 +58,7 @@ class ServerlessRestApiArchitectureStack(Stack):
             "apiBackendLoggroup",
             log_group_name=f"/aws/lambda/{api_backend_fn.function_name}",
             removal_policy=cdk.RemovalPolicy.DESTROY,
-            retention=_logs.RetentionDays.ONE_DAY
+            retention= _logs.RetentionDays.ONE_DAY
         )
 
         # Add API GW front end for the Lambda

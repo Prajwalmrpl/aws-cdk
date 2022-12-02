@@ -39,6 +39,7 @@ from files.deploy_static_site import DeployStaticSiteStack
 from files.cf_oai_static import DeployCloudfrontOaiStaticSiteStack
 from files.serverless_event_with_s3 import ServerlessEventProcessorArchitectureWithS3EventsStack
 from files.serverless_rest_api_architecture import ServerlessRestApiArchitectureStack
+from files.serverless_with_kinesis import ServerlessStreamProcessArchitectureWithS3Stack
 
 app = cdk.App()
 
@@ -109,11 +110,16 @@ db_3tier_stack = RdsDatabase3TierStack(
 #se_stack=ServerlessEventProcessorArchitectureWithS3EventsStack(app, "ServerlessEventProcessorArchitectureWithS3EventsStack", env=env_US, description="Stack for ServerlessEventProcessorArchitectureWithS3EventsStack")
 #cdk.Tags.of(dp_stack).add("Name", "ServerlessEventProcessorArchitectureWithS3EventsStack")
 
-#serv_event = ServerlessEventProcessorArchitectureWithS3EventsStack(app, "Serverless-Event-Process-Architecture-With-S3-Events", env=env_US)
-#cdk.Tags.of(serv_event).add("Name", "Serverless-Architcture-With-S3-Events")
+serv_event = ServerlessEventProcessorArchitectureWithS3EventsStack(app, "Serverless-Event-Process-Architecture-With-S3-Events", env=env_US)
+cdk .Tags.of(serv_event).add("Name", "ServerlessEventProcessArchitectureWithS3Evants")
 
 
 rest_api=ServerlessRestApiArchitectureStack(app, "ServerlessRestApiArchitectureStack", env=env_US, description="Stack for ServerlessRestApiArchitectureStack")
 cdk.Tags.of(rest_api).add("Name", "ServerlessRestApiArchitectureStack")
+
+
+s3_stack=ServerlessStreamProcessArchitectureWithS3Stack(app, "Serverless-StreamProcess-Architecture-With-S3-Stack", env=env_US, description="Stack for ServerlessStreamProcessArchitectureWithS3Stack")
+cdk.Tags.of(s3_stack).add("Name", "ServerlessStreamProcessArchitectureWithS3Stack")
+
 
 app.synth()

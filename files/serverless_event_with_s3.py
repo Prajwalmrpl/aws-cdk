@@ -34,7 +34,7 @@ class ServerlessEventProcessorArchitectureWithS3EventsStack(Stack):
 
         # Read Lambda Code
         try:
-            with open("advanced_use_cases/lambda_src/s3_event_processor.py", mode="r") as f:
+            with open("files/lambda_src/s3_event_processor.py", mode="r") as f:
                 kk_store_processor_fn_code = f.read()
         except OSError:
             print("Unable to read Lambda Function Code")
