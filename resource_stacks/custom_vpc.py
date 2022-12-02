@@ -32,8 +32,6 @@ class CustomVpcStack(Stack):
         
         my_bkt = s3.Bucket(self, "custombktId")
 
-        cdk.Tag.add(my_bkt, "Owner", "Admin")
-
         
         # Resource in same account.
         #import the S3 bucket from the same account

@@ -18,11 +18,9 @@ class VpcStack(core.Stack):
                     name="public", cidr_mask=24, subnet_type=_ec2.SubnetType.PUBLIC
                 ),
                 _ec2.SubnetConfiguration(
-                    name="app", cidr_mask=24, subnet_type=_ec2.SubnetType.PRIVATE
+                    name="app", cidr_mask=24, subnet_type=_ec2.SubnetType.PRIVATE_ISOLATED
                 ),
-                _ec2.SubnetConfiguration(
-                    name="db", cidr_mask=24, subnet_type=_ec2.SubnetType.ISOLATED
-                )
+               
             ]
         )
 

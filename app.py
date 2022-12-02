@@ -5,7 +5,7 @@ import aws_cdk as cdk
 
 
 from demo_cdk.demo_cdk_stack import DemoCdkStack
-#from resource_stacks.custom_vpc import CustomVpcStack
+from resource_stacks.custom_vpc import CustomVpcStack
 #from resource_stacks.custom_ec2 import CustomEC2Stack
 #from resource_stacks.custom_ec2_instance_profile import CustomEc2InstanceProfileStack
 #from resource_stacks.ec2_with_latest_ami import CustomEc2LatestAmiStack
@@ -40,6 +40,8 @@ from files.cf_oai_static import DeployCloudfrontOaiStaticSiteStack
 from files.serverless_event_with_s3 import ServerlessEventProcessorArchitectureWithS3EventsStack
 from files.serverless_rest_api_architecture import ServerlessRestApiArchitectureStack
 from files.serverless_with_kinesis import ServerlessStreamProcessArchitectureWithS3Stack
+from files.container_with_ECS import ContainerizedMicroserviceArchitectureWithEcsStack
+from files.stack_with_fargate import ServerlessBatchProcessorArchitectureWithFargateStack
 
 app = cdk.App()
 
@@ -49,8 +51,8 @@ env_US = cdk.Environment(account="923407756913",region="us-east-1")
 #DemoCdkStack(app, "Stack1", )
 #DemoCdkStack(app, "Stack2", env=env_Mumbai)
 
-#customvpc = CustomVpcStack(app, "CustomVPCStack", env=env_Mumbai )
-#cdk.Tags.of(customvpc).add("Name", "CustomVPC")
+#customvpc = CustomVpcStack(app, "CustomVPCStack", env=env_US, description="A stack of Custom VPC and VPC Peering" )
+#cdk.Tags.of(customvpc).add("Name", "CustomVPCStack")
 
 #CustomEC2Stack(app, "customEC2Stack", env=env_Mumbai)
 
@@ -83,7 +85,7 @@ env_US = cdk.Environment(account="923407756913",region="us-east-1")
 
 #CustomEc2WithAlarmsStack(app, "CustomEC2WithAlaramsStack", env=env_US)
 
-#DeployStaticSiteStack(app, "DeployStaticSiteStack", env=env_US)
+DeployStaticSiteStack(app, "DeployStaticSiteStack", env=env_US)
 
 
 
@@ -107,11 +109,11 @@ db_3tier_stack = RdsDatabase3TierStack(
 #dp_stack=DeployCloudfrontOaiStaticSiteStack(app, "DeployCloudfrontOaiStaticSiteStack", env=env_US, description="Stack for DeployCloudfrontOaiStaticSiteStack")
 #cdk.Tags.of(dp_stack).add("Name", "DeployCloudfrontOaiStaticSiteStack")
 
-#se_stack=ServerlessEventProcessorArchitectureWithS3EventsStack(app, "ServerlessEventProcessorArchitectureWithS3EventsStack", env=env_US, description="Stack for ServerlessEventProcessorArchitectureWithS3EventsStack")
+#se_stack=ServerlessEvenProcessorArchitectureWithS3EventsStack(app, "ServerlessEventProcessorArchitectureWithS3EventsStack", env=env_US, description="Stack for ServerlessEventProcessorArchitectureWithS3EventsStack")
 #cdk.Tags.of(dp_stack).add("Name", "ServerlessEventProcessorArchitectureWithS3EventsStack")
 
 serv_event = ServerlessEventProcessorArchitectureWithS3EventsStack(app, "Serverless-Event-Process-Architecture-With-S3-Events", env=env_US)
-cdk .Tags.of(serv_event).add("Name", "ServerlessEventProcessArchitectureWithS3Evants")
+cdk.Tags.of(serv_event).add("Name", "ServerlessEventProcessArchitectureWithS3Evants")
 
 
 rest_api=ServerlessRestApiArchitectureStack(app, "ServerlessRestApiArchitectureStack", env=env_US, description="Stack for ServerlessRestApiArchitectureStack")
@@ -120,6 +122,12 @@ cdk.Tags.of(rest_api).add("Name", "ServerlessRestApiArchitectureStack")
 
 s3_stack=ServerlessStreamProcessArchitectureWithS3Stack(app, "Serverless-StreamProcess-Architecture-With-S3-Stack", env=env_US, description="Stack for ServerlessStreamProcessArchitectureWithS3Stack")
 cdk.Tags.of(s3_stack).add("Name", "ServerlessStreamProcessArchitectureWithS3Stack")
+
+ecs_stack = ContainerizedMicroserviceArchitectureWithEcsStack(app, "Containerized-MicroserviceArchitecture-With-EcsStack", env=env_US, description="Stack for ContainerizedMicroserviceArchitectureWithEcsStack")
+cdk.Tags.of(ecs_stack).add("Name", "ContainerizedMicroserviceArchitectureWithEcsStack")
+
+#fargate_st=ServerlessBatchProcessorArchitectureWithFargateStack(app, "Serverless-BatchProcessor-ArchitectureWithFargate-Stack", env=env_US, description="Stack for ServerlessBatchProcessorArchitectureWithFargateStack")
+#cdk.Tags.of(fargate_st).add("Name", "ServerlessBatchProcessorArchitectureWithFargateStack")
 
 
 app.synth()
