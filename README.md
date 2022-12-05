@@ -20,6 +20,7 @@
     # Inform SNS on Lambda Alarm State
 
 3.CloudWatch Custom Metrics, Filter Patterns & Alarms.
+
     # Create SNS Topic
     # Add Subscription to SNS Topic
     # Create a MultiAZ VPC
