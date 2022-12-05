@@ -37,6 +37,7 @@
     # Inform SNS on Lambda Alarm State
  
 4.CloudWatch Live Dashboards & Widgets.
+
     # Add Lambda Fuctions Metrics to Dashboard
     # Add 3rd Party API Error to Dashboard
         
