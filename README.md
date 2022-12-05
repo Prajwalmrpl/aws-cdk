@@ -4,17 +4,20 @@ AWS Secrets Manager helps you organize and manage important configuration data s
 #create AWS secrets & SSM Parameters
 
 2.Create IAM Role, Inline & Managed Policy.
-	 #create IAM Users & Groups
-     #Add User1 with SecretsManager Password
-     #Add User2 with Literal Password
-     #Add IAM Group
-     #Login Url Autogeneration
+
+	 # create IAM Users & Groups
+     # Add User1 with SecretsManager Password
+     # Add User2 with Literal Password
+     # Add IAM Group
+     # Login Url Autogeneration
 
 3.IAM Resource Policy: S3 Bucket Policy.
+
 	# Create an S3 Bucket
     # Add Bucket Resource policy
 
 4.Create RDS Database.
+
 	# Create an RDS Database
     # Allow EC2 ASG access to RDS MySQL
     # Output RDS Database EndPoint Address
