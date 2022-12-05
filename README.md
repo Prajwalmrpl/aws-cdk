@@ -23,15 +23,18 @@ AWS Secrets Manager helps you organize and manage important configuration data s
     # Output RDS Database EndPoint Address
 
 5.Import pre-existing Cloud formation templates into CDK.
+
 	# Import Existing Clouformation Template):
     # Output Arn of encrypted Bucket
   
 6.Create SNS Topic & Subscriptions
+
 	# Create SNS Topic
     # Add Subscription to SNS Topic
       
 7.SQS: Fully Managed Message Queues for Microservices.
-	#Craete SQS Queue with FIFO Poilcy
+
+	#Create SQS Queue with FIFO Poilcy
     #Add encryption to queue
     #set the retention period and visibality timeout
       
