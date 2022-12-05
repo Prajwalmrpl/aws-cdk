@@ -1,44 +1,12 @@
-1.DynamoDB: Key-Value Database.
+1.Serverless: Create Lambda for Event Driven Architecture
 
-#Create DynamoDB: Key-Value Database
-        
-2.CloudWatch Alarms?: EC2, Lambda.
+    # Create Serverless Event Processor using Lambda):
+    # Read the Lambda Code from lambda_processor.py
 
-	# Create SNS Topic 
-    # Add Subscription to SNS Topic
-    # Create a MultiAZ VPC):
-    # Read EC2 BootStrap Script
-    # Get the latest ami
-    # Create WebServer Instance
-    # Allow Web Traffic to WebServer
-    # Add permission to web server instance profile
-    # Read Lambda Code
-    # Create Lambda Function to return event
-    # Create EC2 Metric for Avg. CPU
-    # Create Low CPU Alarm for Web Server
-    # Inform SNS on EC2 Alarm State
-    # Create Lambda Alarm
-    # Inform SNS on Lambda Alarm State
+    
+2.Create & Manage Lambda Log Groups
 
-3.CloudWatch Custom Metrics, Filter Patterns & Alarms.
-
-    # Create SNS Topic
-    # Add Subscription to SNS Topic
-    # Create a MultiAZ VPC
-    # Read EC2 BootStrap Script
-    # Get the latest ami
-    # Create WebServer Instance
-    # Allow Web Traffic to WebServer
+    # Create & Manage Lambda Log Groups
     # Read the Lambda Code
-    # Simple Lambda Function to return event
-    # EC2 Metric for Avg. CPU
-    # Low CPU Alarm for Web Server
-    # Inform SNS on EC2 Alarm State
-    # Create Lambda Alarm
-    # Inform SNS on Lambda Alarm State
- 
-4.CloudWatch Live Dashboards & Widgets.
-
-    # Add Lambda Fuctions Metrics to Dashboard
-    # Add 3rd Party API Error to Dashboard
-        
+    # Create Custom Loggroup and add removal policy to delete the log groups once the stack is getting delated
+  
