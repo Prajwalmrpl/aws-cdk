@@ -1,43 +1,63 @@
-1.Customize Stack Parameters: CDK Context variables.
+1.CDK Tokens: How to Export/Import Stack Values | Cfn Intrinsic Functions.
 
-	context variables are the variable which can be set either at compile time or runtime.
-	it can be changed and allows variables which would otherwise be hardcoded to be more dynamic.
-	create a json payload in cdk.json and store the values in cdk.json.
-	“context”: {
-		“env1”: {
-			“region”: “ap-south-1”,
-			“account”: “983674826464”
-		},
-		“env2”: {
-			“region”: “us-east-1”,
-			“account”: “934782983749”
-		}
-	We can access the context variables in stack.py 
-	Using : self.node.try_get_context(‘env-1’)[‘region’]
+2.infrastructure-Is-Code: Version control your Infrastructure.
 	
-	In app.py:
-	env_US = cdk.Environment(account=app.node.try_get_context(‘env1’)[‘account’])
-	env_Mumbai = cdk.Environment(account=app.node.try_get_context(‘env2’)[‘account’])
+	With the AWS CDK, developers or administrators can define their cloud infrastructure by using a supported programming language. CDK applications 
+	should be organized into logical units, such as API, database, and monitoring resources, and optionally have a pipeline for automated deployments. The 	logical units should be
+    implemented as constructs including the following:
 
-2.Build Multi-AZ Production Ready Custom VPC.
+* Infrastructure (such as Amazon S3 buckets, Amazon RDS databases, or an Amazon VPC network)
+* Runtime code (such as AWS Lambda functions)
+* Configuration code
+Stacks define the deployment model of these logical units.
+At deployment time, the AWS CDK synthesizes a cloud assembly that contains the following:
+* AWS CloudFormation templates that describe your infrastructure in all target environments
+* File assets that contain your runtime code and their supporting file.
 
-    # create a custom vpc with the configuration CIDR-10.83.0.0/20 wit azs=2 and one NAT Gateway and subnet configuration of public and private subnets.
-	t_name="customVpcId")
+With the CDK, every commit in your application's main version control branch can represent a complete, consistent, deployable version of your application.
+Application can then be deployed automatically whenever a change is made.
 
-	the above stack will create a vpc with the configuration cidr block: 10.83.0.0/20, in two availability zones and one nat gateway for public access to the 		internet with the subnet configuration with one one public subnet and one private subnet.
+3.Opt-Out from CDK Metadata Version Reporting.
 
-3.Add Tags to CDK Resources On Creation.
+To shave off a couple of lines from our CloudFormation templates, we can opt of our metadata reporting.
+Metadata is used by the CDK team in order to collect analytics in regards to how developers use the CDK service.
 
-	Tags are key - value pairs we attach on AWS resources to easier distinguish and filter between them.
-	In AWS CDK we can add tags to constructs. By default, when we tag a construct, the tag is automatically applied to all of the construct's children 	that are taggable.
+If we want to disable version reporting for all commands we issue on the CDK app level, we can edit the contents of our cdk.json file and set the versionReporting key to false:
+After that if u check the contents of the CloudFormation template in the cdk.out directory, we can see that the CDKMetadata section has been removed:
+Also if we issue the cdk synth command we won't see the CDKMetadata section anymore:
+Turn off Metadata for a single command:
 
-	cdk.Tags.of(stack).add(“Environment”, “Production”)
+We can also opt out of metadata reporting for a single command, by adding the --no-version-reporting flag to the cdk deploy command:
+— cdk --no-version-reporting deploy
+By taking the --no-version-reporting flag approach you would have to include the flag every time you issue a synth or deploy command, so the versionReporting boolean in the cdk.json file is the more convenient option.
 
-4.Import Pre-Existing External Resources: S3, VPC.
+4.CDK Stacks: Resources & Reusability.
+* Mix all of it into a single construct or stack.
+* Separate the resources into constructs of their own.
+*  Remove hardcoded values in constructs.
+* Make constructs generic and put them in a repo.
+ U can also use Reuse a parent CDK Stack in other Application:
+* Create root stack
+	Create a core root stack containing the common resources you want the customer stacks to use. You will need the arn/name of the resources you want to have access to in your customer stacks. One way is to use CfnOutput to write to the cdk.context.json file.
+* Create Custom root stack
+	For each customer you would have something such as a customerRootStack which defines the root resources that you already created - since you don't want to overwrite/recreate you will want to create them using the existing ARN/name.
 
-    # Resource in same account.
-    # import the S3 bucket from the same account using the bucket_name
-    # import the S3 bucket from CrossAccount using bucket ARN
-    #import existing VPC from the same account and same region using VPC-ID
-    # Create VPC Peering to connect between 2 VPC's imported vpc and the custom vpc
-        
+5.DTAP in CDK: Multi-Environment Deployment.
+	we can deploy the stack into multiple environment.
+	in app.py mention the cdk.Environment and multi regions to deploy the stack.
+
+	env_US = cdk.Environment(region="us-east-1")
+	env_Mumbai = cdk.Environment(region="ap-south-1")
+
+	CdkStack(app, "Stack1”, env=env_US)
+	CdkStack(app, "Stack2", env=env_Mumbai)
+
+6.Deploying stacks to Multiple AWS Regions & Accounts: Best Practice.
+	to deploy the stack into multi AWS regions and specified account no in app.py
+	if we not mentioned the region and account in stack it will take the default account and deploy the stack in the default account.
+	now the stack will bind to specified account and specified region.
+	env_US = cdk.Environment(account="934767487632",region="us-east-1")
+	env_Mumbai = cdk.Environment(acccount="92376452763671",region="ap-south-1")
+
+	DemoCdkStack(app, "Stack1", env=env_US)
+	DemoCdkStack(app, "Stack2", env=env_Mumbai)
