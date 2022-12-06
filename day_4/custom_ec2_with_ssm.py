@@ -1,4 +1,4 @@
-#Create AWS SSM Parameter & AWS Secrets
+#Launch EC2 with Custom Instant Profile - SSM Agent Role - Login without SSH Keys
 from aws_cdk import (
     Stack, 
 )
