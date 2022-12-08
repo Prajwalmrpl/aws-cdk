@@ -54,4 +54,14 @@
         # Create a VPC
         # Create a Fargate Cluster
         # Deploy the Batch Processing Container Task in Fargate with Cloudwatch Event Schedule
-       
+
+7.Create a serverless Chat Application.
+
+         # Create a VPC
+         # Create a Fargate Cluster
+         # Create chat service as Fargate Task
+         #create the container definition
+         # Add Port Mapping to Container, Chat app runs on Port 3000
+         # Deploy Container in the micro Service & Attach a LoadBalancer
+         # Output Chat App Url
+        
